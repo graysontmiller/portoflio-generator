@@ -1,14 +1,14 @@
-const fs = require('fs');
+const inquirer = require('inquirer')
+//? const fs = require('fs');
 
-const generatePage = require('./src/page-template.js');
+//? const generatePage = require('./src/page-template.js');
 // using require, this calls upon the page-template file that is exported to this one.
 
-const profileDataArgs = process.argv.slice(2, process.argv.length);
 
 
 // these constant variables assign the respective items within the array with their respective names. Item 0 within array will always = name, etc.
 // now rather than the console.log for generate page being hard-coded with a name and github, they can be dynamically entered into the array by the user. the function then calls them from the array to be displayed accordingly.
-const [name, github] = profileDataArgs;
+//? const pageHTML = generatePage(name, github);
 
 //! const printProfileData = profileDataArr => {
 //     // This... 
@@ -47,10 +47,22 @@ const [name, github] = profileDataArgs;
 
 // by entering "node app.js 'Grayson' 'graysontmiller'" into the command line, I am presented with my name and github account.
 
-fs.writeFile('index.html', generatePage(name, github), err => {
+//? fs.writeFile('./index.html', pageHTML, err => {
     //accesses the filesystem to create a file called index.html based on the generatePage function(the string template in this case). the last argument is a callback for error handling as well as the success message.
-    if (err) throw err;
+    //? if (err) throw err;
     // "if error, create and display an error message within the console."
 
-    console.log('Portfolio complete! Checkout index.html to see the output!');
-});
+    //? console.log('Portfolio complete! Checkout index.html to see the output!');
+//? });
+
+inquirer
+    .prompt ([
+        {
+            type:'input',
+            name: 'name',
+            message: 'What is your name?'
+        }
+    ])
+    // The prompt section receives an array of objects in its argument, creating the question object.
+    .then(answers => console.log(answers));
+    // The answer object is returned as a promise.
