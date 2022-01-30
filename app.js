@@ -75,7 +75,7 @@ const promptUser = () => {
                 name: 'github',
                 message: 'Enter your GitHub Username',
                 validate: githubInput => {
-                    if(ngithubInput) {
+                    if(githubInput) {
                         return true;
                     } else {
                         console.log('Please enter your GitHub Username!');
@@ -84,9 +84,24 @@ const promptUser = () => {
                 }
             },
             {
+                type: 'confirm',
+                name: 'confirmAbout',
+                message: 'Would you like to add some information about yourself for an "about" section?',
+                default: true
+            },
+            {
                 type: 'input',
                 name: 'about',
-                message: 'Provide some information about yourself:'
+                message: 'Provide some information about yourself:',
+                // When is like validate, but it passes an object of all the answers given so far as an object rather than the specific question.
+                when: ({confirmAbout}) => {
+                    if (confirmAbout) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                //The inquirer method automatically passes an object containing the user's answers to the when function. This allows us to write conditional code based on the answers the user has supplied thus far.
             }
         ]);
     };
